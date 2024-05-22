@@ -1,6 +1,8 @@
 matriculas={}
 comando=0
 vendedor=''
+ms=0
+mvn=0
 def cadastro():
     matr=int(input("Digite a matrícula do funcionário: "))
     if matr in matriculas.keys():
@@ -49,14 +51,10 @@ def cadastro():
             sliq=round((sb-(sb*0.275)),2)
             pv=27.5
         x.append(sliq)
+        x.append(pv)
         x.append(sb)
-        if()
-        if (nf>=mvn):
-            matr=mv
-            mvn=nf
         matriculas[matr]=x
-        print(f"{matriculas}")
-    return(matriculas,matr,mvn,mv,pv)
+    return(matriculas)
 
 
 def Remover(matriculas):
@@ -74,28 +72,56 @@ def Remover(matriculas):
         print(f"Matricula não encontrada")
     return(matriculas)
 
+def folha(matriculas):
+    dig=int(input("Digite a matricula do funcionario:"))
+    if(dig in matriculas):
+        print(f'''
+|NOME:{matriculas[dig][0]}
+|FUNÇÃO:{matriculas[dig][1]}           
+|NUMERO DE FALTAS:{matriculas[dig][2]}
+|SALARIO BRUTO: {matriculas[dig][5]}
+|SALARIO LIQUIDO:{matriculas[dig][3]}               
+|PERCENTUAL DE IMPOSTO:{matriculas[dig][4]}%''')
+    else:
+        print("matricula não encontrada ou inexistente")    
 
 def salario(matriculas):
-    for x in range (len(matriculas)):
-        print(f"Matrícula:
-                Nome:
-                Função:
-                Salário bruto:
-                Salário líquido:")
+    for x in matriculas.keys():
+        print(f''''
+Matrícula:{x}
+Nome:{matriculas[x][0]}
+Função:{matriculas[x][1]}  
+Salário bruto:{matriculas[x][5]}
+Salário líquido:{matriculas[x][3]}
+''')
 
-def MV(mvn,mv,matriculas):
-    if(matriculas[mv][1]==101):
+def MS(matriculas,ms):
+    for x,sliq in matriculas.items():
+        if sliq[3]>ms :
+            ms=sliq[3]
+            pms=x
+    print(f'''
+O Funcionario com o maior salario liquido é o {pms} {matriculas[pms][0]} {matriculas[pms][1]}
+Com um salario bruto de {matriculas[pms][5]} 
+Com um percentual de imposto de {matriculas[pms][4]}
+Com um salario liquido de {ms}
+''')
+    return ms
+
+def MV(matriculas,mvn):
+    for x,nf in matriculas.items():
+        if nf[2]>mvn :
+            mvn=nf[2]
+            mv=x
+    if(matriculas[mv][1] == 101):
         desc=50*mvn
     else:
         desc=mvn*(matriculas[mv][3]/30)
     print(f''' 
-            O Funcionario que Tem mais faltas é {mv} {matriculas[mv][0]} {matriculas[mv][1]}
-            Com {mvn} faltas.
-            Assim Seu Salario teve um desconto de {desc}
-    ''')    
-
-def ms(matriculas,):
-
+O Funcionario que Tem mais faltas é {mv} {matriculas[mv][0]} {matriculas[mv][1]}.
+Com {mvn} faltas.
+Assim Seu Salario teve um desconto de {round((desc),2)}.''')
+    return mvn   
 
 print("Bem vindo ao sistema Flavial")
 while comando!=7:
@@ -106,20 +132,21 @@ while comando!=7:
 | [1] Cadastro de funcionarios                      |
 | [2] Remover funcionarios                          |
 | [3] Determinar folha de pagamento de funcionarios |
-| [4] relatorio com SB                              |
-| [5] consultar maior salario                       |
-| [6] consultar maior vagabundo                     |
+| [4] Relatorio                                     |
+| [5] Consultar Funcionario com maior salario       |
+| [6] Consultar Funcionario com mais faltas         |
 | [7] Sair                                          |
 =====================================================
- Digite o que quer fazer: '''))
+Digite o que quer fazer: '''))
     if comando == 1:
         cadastro()
     elif comando==2:
         Remover(matriculas)
+    elif comando== 3 :
+        folha(matriculas)
     elif comando == 4:
         salario(matriculas)
-        
-    
-    
-        
-
+    elif comando == 5:
+        MS(matriculas,ms)
+    elif comando == 6:
+        MV(matriculas,mvn)
