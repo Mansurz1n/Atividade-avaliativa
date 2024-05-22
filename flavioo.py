@@ -15,16 +15,17 @@ def cadastro():
             print(f"codigo invalido")
             cf=int(input("Digite o código de função: "))
         if(cf==101):
-            cf='Vendedor'
+            cod=cf
+            cf='Vendedor' 
         else:
+            cod=cf
             cf='Admnistrativo'
-        x.append(cf)
+        x.append(cod)
         nf=int(input("Digite o número de faltas: "))
         x.append(nf)
         if(cf=='Vendedor'):
             vv=float(input("Digite seu volume de vendas: "))
-
-            sb=(1500+(0.09*vv))-50*nf
+            sb=round((1500+(0.09*vv))-50*nf,2)
         else:
             sb=float(input("Digite o salário fixo do admnistrativo: "))
             while(not 2150<=sb<=6950):
@@ -32,10 +33,30 @@ def cadastro():
                 sb=float(input("Digite o salário fixo do admnistrativo: "))
             else:
                 sb=round(sb-(nf*(sb/30)),2)
+        if sb<=2259.20:
+            sliq=sb
+            pv=0
+        elif sb<=2828.65:
+            sliq=round((sb-(sb*0.075)),2)
+            pv=7.5
+        elif sb<=3751.05:
+            sliq=round((sb-(sb*0.15)),2)
+            pv=15
+        elif sb<=4664.68:
+            sliq=round((sb-(sb*0.225)),2)
+            pv=22.5
+        elif sb>4664.68:
+            sliq=round((sb-(sb*0.275)),2)
+            pv=27.5
+        x.append(sliq)
         x.append(sb)
+        if()
+        if (nf>=mvn):
+            matr=mv
+            mvn=nf
         matriculas[matr]=x
         print(f"{matriculas}")
-    return(matriculas,matr,sb)
+    return(matriculas,matr,mvn,mv,pv)
 
 
 def Remover(matriculas):
@@ -62,7 +83,18 @@ def salario(matriculas):
                 Salário bruto:
                 Salário líquido:")
 
+def MV(mvn,mv,matriculas):
+    if(matriculas[mv][1]==101):
+        desc=50*mvn
+    else:
+        desc=mvn*(matriculas[mv][3]/30)
+    print(f''' 
+            O Funcionario que Tem mais faltas é {mv} {matriculas[mv][0]} {matriculas[mv][1]}
+            Com {mvn} faltas.
+            Assim Seu Salario teve um desconto de {desc}
+    ''')    
 
+def ms(matriculas,):
 
 
 print("Bem vindo ao sistema Flavial")
